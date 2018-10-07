@@ -14,15 +14,17 @@ export default class App extends React.Component {
   }
 
   switchScreen() {
+    const { type } = this.state
     this.setState({
-      type: this.state.type === Camera.Constants.Type.back
+      type: type === Camera.Constants.Type.back
         ? Camera.Constants.Type.front
         : Camera.Constants.Type.back,
     })
   }
 
   render() {
-    const { hasCameraPermission } = this.state;
+    const { hasCameraPermission, type } = this.state;
+
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
@@ -30,7 +32,7 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Camera style={styles.camera} type={this.state.type}>
+          <Camera style={styles.camera} type={type}>
             <View style={styles.cameraView}>
               <TouchableOpacity style={styles.touchable}
                 onPress={this.switchScreen.bind(this)}
